@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>House Robber</title>
+  </head>
+  <body>
+    <h1>House Robber Problem</h1>
+    <form method="post">
+      <label for="nums">Enter house values (comma separated):</label><br><br>
+      <input type="text" id="nums" name="nums" required><br><br>
+      <input type="submit" value="Calculate">
+    </form>
+    {% if result is not none %}
+      <h2>Maximum amount that can be robbed: {{ result }}</h2>
+    {% endif %}
+  </body>
+</html>
