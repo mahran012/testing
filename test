@@ -1,0 +1,61 @@
+import unittest
+
+class TestSolution(unittest.TestCase):
+    def setUp(self):
+        self.solution = Solution()
+    
+    def test_single_house(self):
+        self.assertEqual(self.solution.rob([5]), 5)
+    
+    def test_two_houses(self):
+        self.assertEqual(self.solution.rob([2, 3]), 3)
+    
+    def test_multiple_houses(self):
+        self.assertEqual(self.solution.rob([1, 2, 3, 1]), 4)
+        self.assertEqual(self.solution.rob([2, 7, 9, 3, 1]), 11)
+        self.assertEqual(self.solution.rob([2, 1, 1, 2]), 3)
+    
+    def test_no_houses(self):
+        self.assertEqual(self.solution.rob([]), 0)
+    
+    def test_large_input(self):
+        nums = [2] * 1000  # Large input with repeating values
+        self.assertEqual(self.solution.rob(nums), 1000)
+    
+    def test_alternating_values(self):
+        self.assertEqual(self.solution.rob([2, 1, 4, 9, 3, 8, 5]), 18)
+    
+    def test_all_same_value(self):
+        self.assertEqual(self.solution.rob([3, 3, 3, 3, 3]), 9)
+    
+    def test_one_house_large_value(self):
+        self.assertEqual(self.solution.rob([100]), 100)
+    
+    def test_even_length(self):
+        self.assertEqual(self.solution.rob([2, 1, 1, 2]), 3)
+    
+    def test_odd_length(self):
+        self.assertEqual(self.solution.rob([2, 1, 4, 9, 3, 8, 5]), 18)
+    
+    def test_negative_values(self):
+        self.assertEqual(self.solution.rob([-2, -1, -3, -4]), 0)  # It's not possible to rob any house
+    
+    def test_zero_values(self):
+        self.assertEqual(self.solution.rob([0, 0, 0, 0, 0]), 0)  # No money can be robbed
+    
+    def test_mixed_values(self):
+        self.assertEqual(self.solution.rob([1, 2, 3, -1, -2, 5]), 8)  # Optimal strategy: 1 + 3 + 5
+    
+    def test_large_values(self):
+        nums = [10**6] * 100  # Large input with large values
+        self.assertEqual(self.solution.rob(nums), 10**6 * 50)  # Robbing every other house
+    
+    def test_circular_case(self):
+        self.assertEqual(self.solution.rob([2, 3, 2]), 3)  # Robbing 3 and 2
+    
+    def test_circular_large(self):
+        nums = [1] * 1000  # Large input with all houses having same value
+        self.assertEqual(self.solution.rob(nums), 999)  # Robbing all but the last house
+
+if __name__ == "__main__":
+    unittest.main()
