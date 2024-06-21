@@ -1,0 +1,55 @@
+import unittest
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+
+class TestE2E(unittest.TestCase):
+    def setUp(self):
+        self.driver = webdriver.Chrome()
+        self.driver.get("http://127.0.0.1:5000/")
+    
+    def tearDown(self):
+        self.driver.quit()
+
+    def test_single_house(self):
+        driver = self.driver
+        input_box = driver.find_element(By.ID, "nums")
+        input_box.send_keys("5")
+        input_box.send_keys(Keys.RETURN)
+        result = driver.find_element(By.TAG_NAME, "h2").text
+        self.assertIn("5", result)
+
+    def test_multiple_houses(self):
+        driver = self.driver
+        input_box = driver.find_element(By.ID, "nums")
+        input_box.send_keys("2,7,9,3,1")
+        input_box.send_keys(Keys.RETURN)
+        result = driver.find_element(By.TAG_NAME, "h2").text
+        self.assertIn("11", result)
+
+    def test_empty_input(self):
+        driver = self.driver
+        input_box = driver.find_element(By.ID, "nums")
+        input_box.send_keys("")
+        input_box.send_keys(Keys.RETURN)
+        result = driver.find_element(By.TAG_NAME, "h2").text
+        self.assertEqual(result, "")
+
+    def test_negative_values(self):
+        driver = self.driver
+        input_box = driver.find_element(By.ID, "nums")
+        input_box.send_keys("-1,-2,-3,-4")
+        input_box.send_keys(Keys.RETURN)
+        result = driver.find_element(By.TAG_NAME, "h2").text
+        self.assertIn("0", result)
+
+    def test_zero_values(self):
+        driver = self.driver
+        input_box = driver.find_element(By.ID, "nums")
+        input_box.send_keys("0,0,0,0")
+        input_box.send_keys(Keys.RETURN)
+        result = driver.find_element(By.TAG_NAME, "h2").text
+        self.assertIn("0", result)
+
+if __name__ == "__main__":
+    unittest.main()
